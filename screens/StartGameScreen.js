@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Button,
     TouchableWithoutFeedback, //registers a touch listener without visual feedback
-    Keyboard //? And API that lets you interface con el teclado del telefono
+    Keyboard, //? And API that lets you interface con el teclado del telefono
+    Alert //? Object desde el que se llama una native API
 } from 'react-native';
 import Card from '../components/card/Card'
 import Colors from '../constants/colors'
 import Input from '../components/input/input'
+import NumberContainer from '../components/NumberContainer/NumberContainer'
 
-const StartGameScreen = () => { 
+const StartGameScreen = (props) => { 
     const [enteredNumber, setEnteredNumber] = useState("")
     const [confirmed, setConfirmed] = useState(false)
     const [selectedNumber, setSelectedNumber] = useState(undefined)
@@ -18,18 +20,26 @@ const StartGameScreen = () => {
 
     const confirmInputHandler = () => {
         const chosenNumber = parseInt(enteredNumber)
-        if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber > 99) {
+        if ( isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            Alert.alert("Invalid number", 'Number has to be between 1 and 99', [{text: 'Okay', style: 'destructive', onPress:()=>{setEnteredNumber('');setConfirmed(false)}} ])
             return
         }
         setConfirmed(true);
         setSelectedNumber(chosenNumber)
-        setEnteredValue('')
+        setEnteredNumber('')
     }
 
     let confirmedOutput
 
     if (confirmed) {
-        confirmedOutput = <Text> Chosen Number: {selectedNumber}</Text>
+        
+        confirmedOutput = <Card style={styles.summaryContainer}>
+           <Text> You Selected:</Text>
+           <NumberContainer> {selectedNumber} </NumberContainer>
+           <Button title={'Start Game'} onPress={()=>props.startGame(selectedNumber)}/>
+           
+        </Card>
+        
     }
 
 
@@ -93,6 +103,11 @@ const styles = StyleSheet.create({
     input: {
         width: 50,
         textAlign: 'center',
+    },
+    summaryContainer: {
+        marginTop: 20,
+        alignItems: 'center',
+        
     }
 })
 
