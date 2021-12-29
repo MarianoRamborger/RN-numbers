@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, 
+  SafeAreaView //? Wrapping component which marks the safe area where content can be positioned (accounts for things like notches on phones)
+  //? It should always wrap your whole view, the TOPMOST of all the visual render 
+} from 'react-native';
 import Header from './components/header/header'
 import GameOverScreen from './screens/GameOverScreen';
 import GameScreen from './screens/GameScreen';
@@ -49,12 +52,10 @@ export default function App() {
   } 
 
   return (
-    <View style={styles.screen}>
-      <Header title={'Guess a number'}/>
-
-      {renderView()}
-      
-    </View>
+    <SafeAreaView style={styles.screen}>    
+        <Header title={'Guess a number'}/>
+        {renderView()}
+    </SafeAreaView>
   );
 }
 

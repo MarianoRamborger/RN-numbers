@@ -1,8 +1,13 @@
 import React from 'react'
 
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet,
+Platform, //? Gives you the platform of the device, if its a tv or tablet or phone, as well as the OS  
+//? Platform.select({ ios: styles.X, android: styles.X}) Lets you pass styles depending on the OS for a component or tag..
+//! You pass plataform.select on the style a of a component/tag 
+} from 'react-native'
 import Colors from '../../constants/colors'
 import TitleText from '../titleText/titleText'
+
 
 const Header = props => { 
     return (
@@ -19,7 +24,7 @@ const styles  = StyleSheet.create({
         width: '100%',
         height: 90,
         paddingTop: 36,
-        backgroundColor: Colors.primary,
+        backgroundColor: Platform.OS === 'android' ? Colors.primary : 'white',
         alignItems: 'center',
         justifyContent: 'center'
     }, 

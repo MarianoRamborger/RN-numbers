@@ -2,6 +2,9 @@ import React from 'react'
 import {View,StyleSheet,Text,TouchableOpacity} from 'react-native'
 import Colors from '../../constants/colors'
 
+//! RN checks for the platform then renders the appropiate component, automatically
+//! Just by naming it x.android.js and x.ios.js
+
 const MainButton = props => {
     return <TouchableOpacity activeOpacity={0.7} onPress={props.onPress}>
 
